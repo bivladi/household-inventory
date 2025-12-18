@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Household Inventory
+  datasource:
+    url: jdbc:postgresql://localhost:5432/household_inventory
+    driver-class-name: org.postgresql.Driver
+    username: db_user
+    password: db_password
