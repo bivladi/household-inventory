@@ -14,5 +14,8 @@
   - [x] up/start/stop/down/restart
 - [ ] Implement environment-based configuration
     - [ ] for docker/docker compose
-- [ ] Add checkstyle/linting 
+- [ ] Add code style 
+  - [x] checkstyle
+  - [x] PMD
+  - [ ] spotless
 - [ ] Add CI/CD via github actions
