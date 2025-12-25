@@ -4,6 +4,8 @@ IMAGE_NAME ?= inventory
 IMAGE_TAG ?= latest
 IMAGE := $(IMAGE_NAME):$(IMAGE_TAG)
 
+.PHONY: help clean-up config up-local restart-local status down-local
+
 help:
 	@echo "Targets available:"
 	@echo "  clean-up          - Clean build artifacts"
