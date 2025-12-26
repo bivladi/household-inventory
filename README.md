@@ -19,14 +19,14 @@
   - [x] PMD
   - [X] spotless
 - [ ] Github actions
-  - [ ] CI
-  - checks
-  - build
-  - test
-  - executed always 
+  - [x] CI
+    - checks
+    - build
+    - test
+    - executed always 
   - [ ] CD to AWS
-  - build image
-  - push image (optional)
-  - deploy to AWS
-  - only on commit to main
+    - build image
+    - push image (optional)
+    - deploy to AWS
+    - only on commit to main
   
