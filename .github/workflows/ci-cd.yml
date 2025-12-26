@@ -28,4 +28,4 @@ jobs:
         run: ./gradlew test -x pmdMain -x pmdTest -x spotlessCheck
 
       - name: Build
-        run: ./gradlew buildJar  -x pmdMain -x pmdTest -x spotlessCheck -x test
+        run: ./gradlew bootJar
