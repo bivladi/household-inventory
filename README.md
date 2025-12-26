@@ -14,8 +14,19 @@
   - [x] up/start/stop/down/restart
 - [ ] Implement environment-based configuration
     - [ ] for docker/docker compose
-- [ ] Add code style 
+- [X] Add code style 
   - [x] checkstyle
   - [x] PMD
-  - [ ] spotless
-- [ ] Add CI/CD via github actions
+  - [X] spotless
+- [ ] Github actions
+  - [ ] CI
+  - checks
+  - build
+  - test
+  - executed always 
+  - [ ] CD to AWS
+  - build image
+  - push image (optional)
+  - deploy to AWS
+  - only on commit to main
+  
