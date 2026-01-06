@@ -1,7 +1,11 @@
-# TODO use multi-stage build to reduce image size
+FROM gradle:9.2.1-jdk25-alpine AS build
+WORKDIR /app
+COPY ../build.gradle ../settings.gradle ../gradle ./
+COPY ../src ./src
+RUN gradle build --no-daemon
 
 FROM eclipse-temurin:25-jre-alpine-3.23
 WORKDIR /app
-COPY ../build/libs/inventory.jar inventory.jar
+COPY --from=build /app/build/libs/inventory.jar inventory.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "inventory.jar"]

@@ -4,7 +4,7 @@ IMAGE_NAME ?= inventory
 IMAGE_TAG ?= latest
 IMAGE := $(IMAGE_NAME):$(IMAGE_TAG)
 
-.PHONY: help clean-up config up-local restart-local status down-local
+.PHONY: help clean-up config build build-image up-local restart-local status down-local
 
 help:
 	@echo "Targets available:"
@@ -20,18 +20,25 @@ clean-up:
 config:
 	IMAGE=$(IMAGE) docker compose -f $(DOCKER_COMPOSE_FILE) config
 
+build:
+	echo "Building the project"; \
+	./gradlew build && \
+	echo "Project built successfully";
+
+build-image:
+	echo "Building image..." && \
+	docker image build -f $(DOCKER_FILE) -t $(IMAGE) . && \
+	echo "Image built successfully.";
+
 up-local:
 	@set -e; \
 	if [ -z "$$(docker compose -f $(DOCKER_COMPOSE_FILE) ps --status running -q)" ]; then \
   		make clean-up; \
-  		echo "Building the project"; \
-		./gradlew build && \
-		echo "Project built successfully" && \
-		echo "Building image..." && \
-		docker image build -f $(DOCKER_FILE) -t $(IMAGE) . && \
-		echo "Image built successfully." && \
+  		make build && \
+		make build-image && \
 		echo "Starting local environment..." && \
-		IMAGE=${IMAGE} docker compose -f $(DOCKER_COMPOSE_FILE) up -d || make down-local;\
+		IMAGE=${IMAGE} docker compose -f $(DOCKER_COMPOSE_FILE) up -d || make down-local &&\
+		echo "Local environment is up and running."; \
 	else \
 		echo "Local environment is already running."; \
 		exit 0; \
