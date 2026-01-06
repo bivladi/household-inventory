@@ -30,6 +30,12 @@ jobs:
       - name: Build
         run: ./gradlew bootJar
 
+  docker-publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
