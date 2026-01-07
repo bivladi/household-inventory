@@ -74,4 +74,4 @@ jobs:
             cd /opt/app
             export IMAGE=${{ secrets.DOCKER_REGISTRY_USERNAME }}/household-inventory:${{ github.sha }}
             docker compose -f docker-compose.yml pull app
-            docker compose -f docker-compose.yml up -d --no-deps app
+            docker compose -f docker-compose.yml up -d --no-deps --wait app
