@@ -29,3 +29,4 @@ replay_pid*
 /build/
 /.gradle/
 !/gradle/wrapper/gradle-wrapper.jar
+/deploy/.env

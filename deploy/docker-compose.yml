@@ -3,9 +3,9 @@ services:
     image: postgres:16
     container_name: inventory_db
     environment:
-      POSTGRES_DB: household_inventory
-      POSTGRES_USER: db_user
-      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: ${POSTGRES_DB:? 'Environment variable POSTGRES_DB not set'}
+      POSTGRES_USER: ${POSTGRES_USER:? 'Environment variable POSTGRES_USER not set'}
+      POSTGRES_PASSWORD: ${POSTGRES_USER_PASSWORD:? 'Environment variable POSTGRES_USER_PASSWORD not set'}
     ports:
       - "5432:5432"
     healthcheck:
@@ -23,9 +23,14 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/actuator/health/liveness > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/household_inventory
-      SPRING_DATASOURCE_USERNAME: db_user
-      SPRING_DATASOURCE_PASSWORD: db_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_USER_PASSWORD}
 volumes:
   db_data:
