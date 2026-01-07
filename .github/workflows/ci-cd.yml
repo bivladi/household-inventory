@@ -51,7 +51,7 @@ jobs:
           context: .
           file: ./deploy/Dockerfile
           push: true
-          tags:
+          tags: |
             ${{ secrets.DOCKER_REGISTRY_USERNAME }}/household-inventory:${{ github.sha }}
             ${{ secrets.DOCKER_REGISTRY_USERNAME }}/household-inventory:latest
           platforms: linux/amd64,linux/arm64
