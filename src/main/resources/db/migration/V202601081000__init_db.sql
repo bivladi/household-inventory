@@ -4,15 +4,18 @@ CREATE TABLE IF NOT EXISTS items(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    amount INT NOT NULL CHECK (amount >= 0),
-    price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    amount INT NOT NULL CHECK (amount >= 0) DEFAULT 0,
+    price FLOAT NOT NULL CHECK (price >= 0) DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
 );
 
 CREATE TABLE IF NOT EXISTS categories(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL UNIQUE,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
 );
 
 CREATE TABLE IF NOT EXISTS item_categories(

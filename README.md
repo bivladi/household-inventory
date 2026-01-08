@@ -38,6 +38,7 @@
   - Form based authentication
   - Keycloak/OAuth2
 - [ ] Add API documentation (Swagger/OpenAPI)
+- [ ] Add mapstruct for DTOs
 - [ ] Add logging
 - [ ] Metrics
 - [ ] Dependency version management
