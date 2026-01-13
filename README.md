@@ -42,3 +42,9 @@
 - [ ] Add logging
 - [ ] Metrics
 - [ ] Dependency version management
+
+ADR
+
+Project structure:
+    
+    - 
