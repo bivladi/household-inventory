@@ -1,8 +1,7 @@
 package org.household.inventory.items.application;
 
-import org.household.inventory.model.Item;
-
 import java.util.List;
+import org.household.inventory.model.Item;
 
 public interface ItemsApplicationService {
   Item createItem(Item request);

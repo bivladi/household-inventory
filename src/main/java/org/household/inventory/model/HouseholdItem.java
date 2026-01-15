@@ -19,12 +19,14 @@ import lombok.Setter;
           columnNames = {"household_id", "item_id"})
     })
 public class HouseholdItem extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "household_id", nullable = false)
-    private Household household;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
-    @Column(name = "amount", nullable = false)
-    private Long amount;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "household_id", nullable = false)
+  private Household household;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "item_id", nullable = false)
+  private Item item;
+
+  @Column(name = "amount", nullable = false)
+  private Long amount;
 }

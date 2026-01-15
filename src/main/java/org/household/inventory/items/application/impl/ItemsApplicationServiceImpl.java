@@ -1,5 +1,7 @@
 package org.household.inventory.items.application.impl;
 
+import java.util.List;
+import java.util.UUID;
 import org.household.inventory.items.application.ItemsApplicationService;
 import org.household.inventory.items.exception.BadArgumentApplicationException;
 import org.household.inventory.items.exception.ItemNotFoundApplicationException;
@@ -8,9 +10,6 @@ import org.household.inventory.items.service.ItemsQuery;
 import org.household.inventory.model.Item;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ItemsApplicationServiceImpl implements ItemsApplicationService {

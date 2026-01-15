@@ -17,10 +17,12 @@ public class ItemsQueryImpl implements ItemsQuery {
     this.repository = repository;
   }
 
+  @Override
   public Optional<Item> findById(UUID id) {
     return repository.findById(id);
   }
 
+  @Override
   public List<Item> findAll() {
     return StreamSupport.stream(repository.findAll().spliterator(), false).toList();
   }
