@@ -5,6 +5,7 @@ plugins {
     id 'pmd'
     id 'com.diffplug.spotless' version '8.1.0'
     id 'net.ltgt.errorprone' version '4.3.0'
+    id 'com.gorylenko.gradle-git-properties' version '2.5.4'
 }
 
 group = 'org.household'
@@ -15,6 +16,10 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(25)
 	}
+}
+
+springBoot {
+    buildInfo()
 }
 
 pmd {

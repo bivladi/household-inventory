@@ -3,6 +3,7 @@ WORKDIR /app
 COPY ../build.gradle ../settings.gradle ../gradle ./
 COPY ../config ./config
 COPY ../src ./src
+COPY ../.git ./.git
 RUN gradle build -x check -x test --no-daemon
 
 FROM eclipse-temurin:25-jre-alpine-3.23
