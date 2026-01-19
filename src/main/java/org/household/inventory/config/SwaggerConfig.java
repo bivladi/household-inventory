@@ -45,13 +45,13 @@ public class SwaggerConfig {
         .security(List.of(new SecurityRequirement().addList("keycloak")))
         .info(
             new Info()
-                .title(buildProperties == null ? "Household Inventory API" : buildProperties.getName())
+                .title(
+                    buildProperties == null ? "Household Inventory API" : buildProperties.getName())
                 .version(buildProperties == null ? "N/A" : buildProperties.getVersion())
                 .description(getDescription(buildProperties, gitProperties)));
   }
 
-  private String getDescription(BuildProperties properties,
-                                GitProperties gitProperties) {
+  private String getDescription(BuildProperties properties, GitProperties gitProperties) {
     return String.format(
         "<i>This is Household Backend application</i><br>"
             + "<br>Git commit: <b>%s</b>"
@@ -68,5 +68,4 @@ public class SwaggerConfig {
                 .atZone(ZoneId.systemDefault())
                 .format(DateTimeFormatter.RFC_1123_DATE_TIME));
   }
-
 }

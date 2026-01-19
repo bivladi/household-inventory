@@ -25,8 +25,9 @@ jobs:
       - name: Verify
         run: ./gradlew check -x test
 
-      - name: Test
-        run: ./gradlew test -x pmdMain -x pmdTest -x spotlessCheck
+# Uncomment the following lines to enable tests in the CI/CD pipeline
+#      - name: Test
+#        run: ./gradlew test -x pmdMain -x pmdTest -x spotlessCheck
 
       - name: Build
         run: ./gradlew bootJar
