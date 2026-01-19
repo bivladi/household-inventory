@@ -34,6 +34,7 @@ spring:
 security:
   keycloak:
     realm: household
+    auth-url: http://localhost:8090
     server-url: http://localhost:8090
     client-id: household-backend
     issuer-uri: ${security.keycloak.server-url}/realms/${security.keycloak.realm}

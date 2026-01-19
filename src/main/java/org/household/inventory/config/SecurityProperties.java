@@ -13,6 +13,9 @@ public class SecurityProperties {
   /** Keycloak realm name. */
   private String realm;
 
+  /** Keycloak authentication URL. */
+  private String authUrl;
+
   /** Keycloak server URL. */
   private String serverUrl;
 

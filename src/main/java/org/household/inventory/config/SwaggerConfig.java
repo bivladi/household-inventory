@@ -32,7 +32,7 @@ public class SwaggerConfig {
     final var authUrl =
         String.format(
             "%s/realms/%s/protocol/openid-connect/auth",
-            securityProperties.getServerUrl(), securityProperties.getRealm());
+            securityProperties.getAuthUrl(), securityProperties.getRealm());
     final var oAuthFlow = new OAuthFlow().authorizationUrl(authUrl);
     return new OpenAPI()
         .components(
