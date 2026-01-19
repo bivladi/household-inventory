@@ -1,4 +1,4 @@
-package org.household.inventory.api.controller;
+package org.household.inventory.items.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

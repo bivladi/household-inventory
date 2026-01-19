@@ -1,11 +1,11 @@
-package org.household.inventory.api.mappers;
+package org.household.inventory.items.mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.household.inventory.api.dto.CreateItemRequest;
-import org.household.inventory.api.dto.CreateItemResponse;
-import org.household.inventory.api.dto.ItemResponse;
-import org.household.inventory.domain.entity.Item;
+import org.household.inventory.items.dto.CreateItemRequest;
+import org.household.inventory.items.dto.CreateItemResponse;
+import org.household.inventory.items.dto.ItemResponse;
+import org.household.inventory.model.Item;
 import org.springframework.stereotype.Component;
 
 /**

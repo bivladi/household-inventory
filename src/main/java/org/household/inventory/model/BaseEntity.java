@@ -1,4 +1,4 @@
-package org.household.inventory.domain.entity;
+package org.household.inventory.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

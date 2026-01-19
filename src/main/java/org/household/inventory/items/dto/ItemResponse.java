@@ -1,4 +1,4 @@
-package org.household.inventory.api.dto;
+package org.household.inventory.items.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
