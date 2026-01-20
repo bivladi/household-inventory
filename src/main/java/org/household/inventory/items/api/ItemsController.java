@@ -1,6 +1,5 @@
 package org.household.inventory.items.api;
 
-import java.util.List;
 import org.household.inventory.items.application.ItemsApplicationService;
 import org.household.inventory.items.dto.CreateItemRequest;
 import org.household.inventory.items.dto.CreateItemResponse;
@@ -8,8 +7,10 @@ import org.household.inventory.items.dto.ItemResponse;
 import org.household.inventory.items.mappers.ItemsMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/items")
 public class ItemsController {
 
   private final ItemsMapper mapper;
