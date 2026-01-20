@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
@@ -56,10 +54,5 @@ public class KeycloakSecurityConfig {
     final var tokenResolver = new DefaultBearerTokenResolver();
     tokenResolver.setAllowUriQueryParameter(true);
     return tokenResolver;
-  }
-
-  @Bean
-  public JwtDecoder jwtDecoder(SecurityProperties securityProperties) {
-    return JwtDecoders.fromIssuerLocation(securityProperties.getIssuerUri());
   }
 }
