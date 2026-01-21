@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS households(
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT NOT NULL DEFAULT '',
     created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    created_by TEXT NOT NULL DEFAULT '',
+    updated_by TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS items(
@@ -15,7 +17,9 @@ CREATE TABLE IF NOT EXISTS items(
     amount INT NOT NULL CHECK (amount >= 0) DEFAULT 0,
     price FLOAT NOT NULL CHECK (price >= 0) DEFAULT 0,
     created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    created_by TEXT NOT NULL DEFAULT '',
+    updated_by TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS household_items(
@@ -25,6 +29,8 @@ CREATE TABLE IF NOT EXISTS household_items(
     amount BIGINT NOT NULL CHECK (amount >= 0) DEFAULT 0,
     created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    created_by TEXT NOT NULL DEFAULT '',
+    updated_by TEXT NOT NULL DEFAULT '',
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
     FOREIGN KEY (household_id) REFERENCES households(id) ON DELETE CASCADE
 );
@@ -36,7 +42,9 @@ CREATE TABLE IF NOT EXISTS categories(
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    created_by TEXT NOT NULL DEFAULT '',
+    updated_by TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS item_categories(

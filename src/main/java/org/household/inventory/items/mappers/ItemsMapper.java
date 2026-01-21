@@ -77,7 +77,9 @@ public final class ItemsMapper {
         // item.getCategories().stream().map(Category::getName).collect(Collectors.toList())
         //            : List.of(),
         item.getCreatedAt(),
-        item.getUpdatedAt());
+        item.getCreatedBy(),
+        item.getUpdatedAt(),
+        item.getUpdatedBy());
   }
 
   public List<ItemResponse> toResponseList(List<Item> all) {

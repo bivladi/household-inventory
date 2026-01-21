@@ -1,15 +1,19 @@
 package org.household.inventory.config;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.household.inventory.security.InternalUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
@@ -20,7 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class KeycloakSecurityConfig {
+public class SecurityConfig {
 
   /** Configure security filter chain. */
   @Bean
@@ -54,5 +58,15 @@ public class KeycloakSecurityConfig {
     final var tokenResolver = new DefaultBearerTokenResolver();
     tokenResolver.setAllowUriQueryParameter(true);
     return tokenResolver;
+  }
+
+  @Bean
+  public AuditorAware<String> auditorAware() {
+    return () ->
+        Optional.ofNullable(SecurityContextHolder.getContext())
+            .flatMap(context -> Optional.ofNullable(context.getAuthentication()))
+            .filter(Authentication::isAuthenticated)
+            .map(InternalUser.class::cast)
+            .map(InternalUser::getUsername);
   }
 }

@@ -23,7 +23,7 @@ class ItemsQueryImplTest {
   }
 
   @Test
-  public void testFindById() {
+  void testFindById() {
 
     final var value = new Item();
     final var id = UUID.randomUUID();
@@ -32,7 +32,7 @@ class ItemsQueryImplTest {
 
     final var item = subject.findById(id);
 
-    assertTrue(item.isPresent());
-    assertEquals(id, item.get().getId());
+    assertTrue(item.isPresent(), "item should be present");
+    assertEquals(id, item.get().getId(), "item id should match");
   }
 }

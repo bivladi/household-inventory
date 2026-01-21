@@ -17,4 +17,6 @@ public record ItemResponse(
     Double price,
     List<String> categories,
     LocalDateTime createdAt,
-    LocalDateTime updatedAt) {}
+    String createdBy,
+    LocalDateTime updatedAt,
+    String updatedBy) {}
