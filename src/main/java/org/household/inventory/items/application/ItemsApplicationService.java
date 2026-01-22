@@ -9,4 +9,6 @@ public interface ItemsApplicationService {
   Item getItemById(String id);
 
   List<Item> getAllItems();
+
+  Item updateItem(String id, Item updateRequest);
 }

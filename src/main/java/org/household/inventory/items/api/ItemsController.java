@@ -5,8 +5,16 @@ import org.household.inventory.items.application.ItemsApplicationService;
 import org.household.inventory.items.dto.CreateItemRequest;
 import org.household.inventory.items.dto.CreateItemResponse;
 import org.household.inventory.items.dto.ItemResponse;
+import org.household.inventory.items.dto.UpdateItemRequest;
+import org.household.inventory.items.dto.UpdateItemResponse;
 import org.household.inventory.items.mappers.ItemsMapper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/items")
@@ -33,5 +41,11 @@ public class ItemsController {
   @GetMapping("/{id}")
   public ItemResponse getById(@PathVariable(name = "id") String id) {
     return mapper.toResponse(service.getItemById(id));
+  }
+
+  @PutMapping("/{id}")
+  public UpdateItemResponse update(
+      @PathVariable(name = "id") String id, @RequestBody UpdateItemRequest request) {
+    return mapper.toUpdateResponse(service.updateItem(id, mapper.toUpdateEntity(request)));
   }
 }

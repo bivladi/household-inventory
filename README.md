@@ -29,19 +29,23 @@
     - push image (optional)
     - deploy to AWS
     - only on commit to main
-- [ ] Add persistance
+- [x] Add persistance
     - Entities, Repositories
     - Flyway migrations
     - Basic Controller/Service
     - expose DB port outside
-- [ ] Add security
+- [x] Add security
   - Form based authentication
   - Keycloak/OAuth2
-- [ ] Add API documentation (Swagger/OpenAPI)
+- [x] Add API documentation (Swagger/OpenAPI)
 - [ ] Add mapstruct for DTOs
 - [ ] Add logging
 - [ ] Metrics
 - [ ] Dependency version management
+- [ ] Error handling
+- [ ] Integration tests
+- 
+
 
 ADR
 

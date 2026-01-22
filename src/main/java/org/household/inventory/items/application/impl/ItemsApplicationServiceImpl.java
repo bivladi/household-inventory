@@ -41,4 +41,33 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   public List<Item> getAllItems() {
     return itemsQuery.findAll();
   }
+
+  @Override
+  public Item updateItem(String id, Item updateRequest) {
+    if (!StringUtils.hasText(id)) {
+      throw new BadArgumentApplicationException("item id cannot be null or empty");
+    }
+
+    Item existingItem =
+        itemsQuery
+            .findById(UUID.fromString(id))
+            .orElseThrow(
+                () -> new ItemNotFoundApplicationException("item not found with id: " + id));
+
+    // Apply partial updates - only update non-null fields
+    if (updateRequest.getName() != null) {
+      existingItem.setName(updateRequest.getName());
+    }
+    if (updateRequest.getDescription() != null) {
+      existingItem.setDescription(updateRequest.getDescription());
+    }
+    if (updateRequest.getAmount() != null) {
+      existingItem.setAmount(updateRequest.getAmount());
+    }
+    if (updateRequest.getPrice() != null) {
+      existingItem.setPrice(updateRequest.getPrice());
+    }
+
+    return repository.save(existingItem);
+  }
 }
