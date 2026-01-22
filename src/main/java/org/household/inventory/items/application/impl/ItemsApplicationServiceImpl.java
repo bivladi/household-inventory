@@ -8,6 +8,7 @@ import org.household.inventory.items.exception.ItemNotFoundApplicationException;
 import org.household.inventory.items.repository.ItemsRepository;
 import org.household.inventory.items.service.ItemsQuery;
 import org.household.inventory.model.Item;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -40,6 +41,11 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   @Override
   public List<Item> getAllItems() {
     return itemsQuery.findAll();
+  }
+
+  @Override
+  public Page<Item> getAllItems(int page, int size, String sort, String direction) {
+    return itemsQuery.findAll(page, size, sort, direction);
   }
 
   @Override

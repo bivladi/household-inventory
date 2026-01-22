@@ -58,3 +58,13 @@ status:
 
 down-local:
 	docker compose -f $(DOCKER_COMPOSE_FILE) down
+
+up-local-infra:
+	echo "Starting local infrastructure..." && \
+	IMAGE=${IMAGE} docker compose -f $(DOCKER_COMPOSE_FILE) up keycloak -d --wait &&\
+	echo "Local infrastructure is up and running."
+
+down-local-infra:
+	echo "Stopping local infrastructure..." && \
+	IMAGE=${IMAGE} docker compose -f $(DOCKER_COMPOSE_FILE) down -v &&\
+	echo "Local infrastructure is stopped."

@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 import org.household.inventory.items.dto.CreateItemRequest;
 import org.household.inventory.items.dto.CreateItemResponse;
 import org.household.inventory.items.dto.ItemResponse;
+import org.household.inventory.items.dto.PaginatedItemResponse;
 import org.household.inventory.items.dto.UpdateItemRequest;
 import org.household.inventory.items.dto.UpdateItemResponse;
 import org.household.inventory.model.Item;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 /**
@@ -139,5 +141,32 @@ public final class ItemsMapper {
 
   public List<ItemResponse> toResponseList(List<Item> all) {
     return all.stream().map(this::toResponse).collect(Collectors.toList());
+  }
+
+  /**
+   * Converts Page<Item> to PaginatedItemResponse DTO.
+   *
+   * @param page the paginated entity data
+   * @return the paginated DTO representation
+   * @throws IllegalArgumentException if page is null
+   */
+  public PaginatedItemResponse toPaginatedResponse(Page<Item> page) {
+    if (page == null) {
+      throw new IllegalArgumentException("Page cannot be null");
+    }
+
+    List<ItemResponse> items =
+        page.getContent().stream().map(this::toResponse).collect(Collectors.toList());
+
+    return new PaginatedItemResponse(
+        items,
+        page.getNumber(),
+        page.getSize(),
+        page.getTotalElements(),
+        page.getTotalPages(),
+        page.isFirst(),
+        page.isLast(),
+        page.hasNext(),
+        page.hasPrevious());
   }
 }
