@@ -1,19 +1,19 @@
-package org.household.inventory.items.api;
+package org.household.inventory.categories.api;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.household.inventory.categories.application.CategoriesApplicationService;
+import org.household.inventory.categories.dto.CategoryResponse;
+import org.household.inventory.categories.dto.CreateCategoryRequest;
+import org.household.inventory.categories.dto.CreateCategoryResponse;
+import org.household.inventory.categories.dto.PaginatedCategoryResponse;
+import org.household.inventory.categories.dto.UpdateCategoryRequest;
+import org.household.inventory.categories.dto.UpdateCategoryResponse;
+import org.household.inventory.categories.mappers.CategoriesMapper;
 import org.household.inventory.common.api.model.PageNumber;
 import org.household.inventory.common.api.model.SizeNumber;
 import org.household.inventory.common.api.model.SortDirection;
 import org.household.inventory.common.api.model.SortField;
-import org.household.inventory.items.application.ItemsApplicationService;
-import org.household.inventory.items.dto.CreateItemRequest;
-import org.household.inventory.items.dto.CreateItemResponse;
-import org.household.inventory.items.dto.ItemResponse;
-import org.household.inventory.items.dto.PaginatedItemResponse;
-import org.household.inventory.items.dto.UpdateItemRequest;
-import org.household.inventory.items.dto.UpdateItemResponse;
-import org.household.inventory.items.mappers.ItemsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,24 +26,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/items")
-public class ItemsController {
+@RequestMapping("/api/categories")
+public class CategoriesController {
 
-  private final ItemsMapper mapper;
-  private final ItemsApplicationService service;
+  private final CategoriesMapper mapper;
+  private final CategoriesApplicationService service;
 
-  public ItemsController(ItemsMapper mapper, ItemsApplicationService service) {
+  public CategoriesController(CategoriesMapper mapper, CategoriesApplicationService service) {
     this.mapper = mapper;
     this.service = service;
   }
 
   @PostMapping
-  public CreateItemResponse create(@RequestBody CreateItemRequest request) {
-    return mapper.toCreateResponse(service.createItem(mapper.toEntity(request)));
+  public CreateCategoryResponse create(@RequestBody CreateCategoryRequest request) {
+    return mapper.toCreateResponse(service.createCategory(mapper.toEntity(request)));
   }
 
   @GetMapping
-  public PaginatedItemResponse findAll(
+  public PaginatedCategoryResponse findAll(
       @Parameter(schema = @Schema(type = "integer", defaultValue = "0", minimum = "0"))
           @RequestParam(defaultValue = "0")
           PageNumber page,
@@ -53,23 +53,24 @@ public class ItemsController {
       @RequestParam(defaultValue = "CREATED_AT") SortField sort,
       @RequestParam(defaultValue = "ASC") SortDirection direction) {
     return mapper.toPaginatedResponse(
-        service.getAllItems(page.value(), size.value(), sort.getValue(), direction.getValue()));
+        service.getAllCategories(
+            page.value(), size.value(), sort.getValue(), direction.getValue()));
   }
 
   @GetMapping("/{id}")
-  public ItemResponse getById(@PathVariable(name = "id") String id) {
-    return mapper.toResponse(service.getItemById(id));
+  public CategoryResponse getById(@PathVariable(name = "id") String id) {
+    return mapper.toResponse(service.getCategoryById(id));
   }
 
   @PutMapping("/{id}")
-  public UpdateItemResponse update(
-      @PathVariable(name = "id") String id, @RequestBody UpdateItemRequest request) {
-    return mapper.toUpdateResponse(service.updateItem(id, mapper.toUpdateEntity(request)));
+  public UpdateCategoryResponse update(
+      @PathVariable(name = "id") String id, @RequestBody UpdateCategoryRequest request) {
+    return mapper.toUpdateResponse(service.updateCategory(id, mapper.toUpdateEntity(request)));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable(name = "id") String id) {
-    service.deleteItem(id);
+    service.deleteCategory(id);
     return ResponseEntity.ok().build();
   }
 }

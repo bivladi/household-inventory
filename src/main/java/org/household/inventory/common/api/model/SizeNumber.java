@@ -1,4 +1,4 @@
-package org.household.inventory.items.api.model;
+package org.household.inventory.common.api.model;
 
 public record SizeNumber(int value) {
   public SizeNumber(int value) {

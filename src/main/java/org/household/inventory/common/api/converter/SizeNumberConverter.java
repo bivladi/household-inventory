@@ -1,6 +1,6 @@
-package org.household.inventory.items.api.converter;
+package org.household.inventory.common.api.converter;
 
-import org.household.inventory.items.api.model.SizeNumber;
+import org.household.inventory.common.api.model.SizeNumber;
 import org.jspecify.annotations.Nullable;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

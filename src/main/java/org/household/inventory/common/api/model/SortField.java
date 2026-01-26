@@ -1,4 +1,4 @@
-package org.household.inventory.items.api.model;
+package org.household.inventory.common.api.model;
 
 import lombok.Getter;
 
