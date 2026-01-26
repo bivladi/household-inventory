@@ -14,8 +14,8 @@ import org.household.inventory.items.dto.PaginatedItemResponse;
 import org.household.inventory.items.dto.UpdateItemRequest;
 import org.household.inventory.items.dto.UpdateItemResponse;
 import org.household.inventory.items.mappers.ItemsMapper;
-import org.household.inventory.model.Item;
-import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,9 +52,8 @@ public class ItemsController {
           SizeNumber size,
       @RequestParam(defaultValue = "CREATED_AT") SortField sort,
       @RequestParam(defaultValue = "ASC") SortDirection direction) {
-    Page<Item> itemPage =
-        service.getAllItems(page.value(), size.value(), sort.getValue(), direction.getValue());
-    return mapper.toPaginatedResponse(itemPage);
+    return mapper.toPaginatedResponse(
+        service.getAllItems(page.value(), size.value(), sort.getValue(), direction.getValue()));
   }
 
   @GetMapping("/{id}")
@@ -66,5 +65,11 @@ public class ItemsController {
   public UpdateItemResponse update(
       @PathVariable(name = "id") String id, @RequestBody UpdateItemRequest request) {
     return mapper.toUpdateResponse(service.updateItem(id, mapper.toUpdateEntity(request)));
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable(name = "id") String id) {
+    service.deleteItem(id);
+    return ResponseEntity.ok().build();
   }
 }

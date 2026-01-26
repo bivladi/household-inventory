@@ -1,6 +1,5 @@
 package org.household.inventory.items.application.impl;
 
-import java.util.List;
 import java.util.UUID;
 import org.household.inventory.items.application.ItemsApplicationService;
 import org.household.inventory.items.exception.BadArgumentApplicationException;
@@ -39,11 +38,6 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   }
 
   @Override
-  public List<Item> getAllItems() {
-    return itemsQuery.findAll();
-  }
-
-  @Override
   public Page<Item> getAllItems(int page, int size, String sort, String direction) {
     return itemsQuery.findAll(page, size, sort, direction);
   }
@@ -75,5 +69,10 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
     }
 
     return repository.save(existingItem);
+  }
+
+  @Override
+  public void deleteItem(String id) {
+    repository.deleteById(UUID.fromString(id));
   }
 }
