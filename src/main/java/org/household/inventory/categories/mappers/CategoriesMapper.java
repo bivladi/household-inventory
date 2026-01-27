@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 import org.household.inventory.categories.dto.CategoryResponse;
 import org.household.inventory.categories.dto.CreateCategoryRequest;
 import org.household.inventory.categories.dto.CreateCategoryResponse;
-import org.household.inventory.categories.dto.PaginatedCategoryResponse;
 import org.household.inventory.categories.dto.UpdateCategoryRequest;
 import org.household.inventory.categories.dto.UpdateCategoryResponse;
+import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -122,13 +122,13 @@ public final class CategoriesMapper {
   }
 
   /**
-   * Converts Page<Category> to PaginatedCategoryResponse DTO.
+   * Converts Page<Category> to PaginatedResponse DTO.
    *
    * @param page the paginated entity data
    * @return the paginated DTO representation
    * @throws IllegalArgumentException if page is null
    */
-  public PaginatedCategoryResponse toPaginatedResponse(Page<Category> page) {
+  public PaginatedResponse<CategoryResponse> toPaginatedResponse(Page<Category> page) {
     if (page == null) {
       throw new IllegalArgumentException("Page cannot be null");
     }
@@ -136,7 +136,7 @@ public final class CategoriesMapper {
     List<CategoryResponse> categories =
         page.getContent().stream().map(this::toResponse).collect(Collectors.toList());
 
-    return new PaginatedCategoryResponse(
+    return new PaginatedResponse<>(
         categories,
         page.getNumber(),
         page.getSize(),

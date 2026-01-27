@@ -2,10 +2,10 @@ package org.household.inventory.items.mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.items.dto.CreateItemRequest;
 import org.household.inventory.items.dto.CreateItemResponse;
 import org.household.inventory.items.dto.ItemResponse;
-import org.household.inventory.items.dto.PaginatedItemResponse;
 import org.household.inventory.items.dto.UpdateItemRequest;
 import org.household.inventory.items.dto.UpdateItemResponse;
 import org.household.inventory.model.Item;
@@ -144,13 +144,13 @@ public final class ItemsMapper {
   }
 
   /**
-   * Converts Page<Item> to PaginatedItemResponse DTO.
+   * Converts Page<Item> to PaginatedResponse DTO.
    *
    * @param page the paginated entity data
    * @return the paginated DTO representation
    * @throws IllegalArgumentException if page is null
    */
-  public PaginatedItemResponse toPaginatedResponse(Page<Item> page) {
+  public PaginatedResponse<ItemResponse> toPaginatedResponse(Page<Item> page) {
     if (page == null) {
       throw new IllegalArgumentException("Page cannot be null");
     }
@@ -158,7 +158,7 @@ public final class ItemsMapper {
     List<ItemResponse> items =
         page.getContent().stream().map(this::toResponse).collect(Collectors.toList());
 
-    return new PaginatedItemResponse(
+    return new PaginatedResponse<>(
         items,
         page.getNumber(),
         page.getSize(),

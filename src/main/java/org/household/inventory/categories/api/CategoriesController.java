@@ -6,11 +6,11 @@ import org.household.inventory.categories.application.CategoriesApplicationServi
 import org.household.inventory.categories.dto.CategoryResponse;
 import org.household.inventory.categories.dto.CreateCategoryRequest;
 import org.household.inventory.categories.dto.CreateCategoryResponse;
-import org.household.inventory.categories.dto.PaginatedCategoryResponse;
 import org.household.inventory.categories.dto.UpdateCategoryRequest;
 import org.household.inventory.categories.dto.UpdateCategoryResponse;
 import org.household.inventory.categories.mappers.CategoriesMapper;
 import org.household.inventory.common.api.model.PageNumber;
+import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.common.api.model.SizeNumber;
 import org.household.inventory.common.api.model.SortDirection;
 import org.household.inventory.common.api.model.SortField;
@@ -43,7 +43,7 @@ public class CategoriesController {
   }
 
   @GetMapping
-  public PaginatedCategoryResponse findAll(
+  public PaginatedResponse<CategoryResponse> findAll(
       @Parameter(schema = @Schema(type = "integer", defaultValue = "0", minimum = "0"))
           @RequestParam(defaultValue = "0")
           PageNumber page,

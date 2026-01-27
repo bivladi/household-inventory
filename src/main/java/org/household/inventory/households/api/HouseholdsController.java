@@ -3,6 +3,7 @@ package org.household.inventory.households.api;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.household.inventory.common.api.model.PageNumber;
+import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.common.api.model.SizeNumber;
 import org.household.inventory.common.api.model.SortDirection;
 import org.household.inventory.common.api.model.SortField;
@@ -10,7 +11,6 @@ import org.household.inventory.households.application.HouseholdsApplicationServi
 import org.household.inventory.households.dto.CreateHouseholdRequest;
 import org.household.inventory.households.dto.CreateHouseholdResponse;
 import org.household.inventory.households.dto.HouseholdResponse;
-import org.household.inventory.households.dto.PaginatedHouseholdResponse;
 import org.household.inventory.households.dto.UpdateHouseholdRequest;
 import org.household.inventory.households.dto.UpdateHouseholdResponse;
 import org.household.inventory.households.mappers.HouseholdsMapper;
@@ -43,7 +43,7 @@ public class HouseholdsController {
   }
 
   @GetMapping
-  public PaginatedHouseholdResponse findAll(
+  public PaginatedResponse<HouseholdResponse> findAll(
       @Parameter(schema = @Schema(type = "integer", defaultValue = "0", minimum = "0"))
           @RequestParam(defaultValue = "0")
           PageNumber page,
