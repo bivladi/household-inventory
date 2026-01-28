@@ -34,7 +34,6 @@ public final class ItemsMapper {
     Item item = new Item();
     item.setName(request.getName());
     item.setDescription(request.getDescription());
-    item.setAmount(request.getAmount());
     item.setPrice(request.getPrice());
     // Initialize with empty list to avoid nulls
     item.setCategories(List.of());
@@ -73,7 +72,6 @@ public final class ItemsMapper {
         item.getId(),
         item.getName(),
         item.getDescription(),
-        item.getAmount(),
         item.getPrice(),
         List.of(),
         //        item.getCategories() != null
@@ -102,7 +100,6 @@ public final class ItemsMapper {
     Item item = new Item();
     item.setName(request.getName());
     item.setDescription(request.getDescription());
-    item.setAmount(request.getAmount());
     item.setPrice(request.getPrice());
     // Categories are not updated via this endpoint
     item.setCategories(List.of());
@@ -126,7 +123,6 @@ public final class ItemsMapper {
         item.getId(),
         item.getName(),
         item.getDescription(),
-        item.getAmount(),
         item.getPrice(),
         List.of(),
         //        item.getCategories() != null

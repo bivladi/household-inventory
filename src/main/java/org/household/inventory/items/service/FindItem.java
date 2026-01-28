@@ -6,8 +6,12 @@ import java.util.UUID;
 import org.household.inventory.model.Item;
 import org.springframework.data.domain.Page;
 
-public interface ItemsQuery {
+public interface FindItem {
   Optional<Item> findById(UUID id);
+
+  boolean existsByName(String name);
+
+  boolean isUnderCategory(UUID categoryId);
 
   List<Item> findAll();
 

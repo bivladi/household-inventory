@@ -5,7 +5,7 @@ import org.household.inventory.items.application.ItemsApplicationService;
 import org.household.inventory.items.exception.BadArgumentApplicationException;
 import org.household.inventory.items.exception.ItemNotFoundApplicationException;
 import org.household.inventory.items.repository.ItemsRepository;
-import org.household.inventory.items.service.ItemsQuery;
+import org.household.inventory.items.service.FindItem;
 import org.household.inventory.model.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import org.springframework.util.StringUtils;
 @Service
 public class ItemsApplicationServiceImpl implements ItemsApplicationService {
 
-  private final ItemsQuery itemsQuery;
+  private final FindItem findItem;
   private final ItemsRepository repository;
 
-  public ItemsApplicationServiceImpl(ItemsQuery itemsQuery, ItemsRepository repository) {
-    this.itemsQuery = itemsQuery;
+  public ItemsApplicationServiceImpl(FindItem findItem, ItemsRepository repository) {
+    this.findItem = findItem;
     this.repository = repository;
   }
 
@@ -32,14 +32,14 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
     if (!StringUtils.hasText(id)) {
       throw new BadArgumentApplicationException("item id cannot be null or empty");
     }
-    return itemsQuery
+    return findItem
         .findById(UUID.fromString(id))
         .orElseThrow(() -> new ItemNotFoundApplicationException("item not found with id: " + id));
   }
 
   @Override
   public Page<Item> getAllItems(int page, int size, String sort, String direction) {
-    return itemsQuery.findAll(page, size, sort, direction);
+    return findItem.findAll(page, size, sort, direction);
   }
 
   @Override
@@ -49,7 +49,7 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
     }
 
     Item existingItem =
-        itemsQuery
+        findItem
             .findById(UUID.fromString(id))
             .orElseThrow(
                 () -> new ItemNotFoundApplicationException("item not found with id: " + id));
@@ -60,9 +60,6 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
     }
     if (updateRequest.getDescription() != null) {
       existingItem.setDescription(updateRequest.getDescription());
-    }
-    if (updateRequest.getAmount() != null) {
-      existingItem.setAmount(updateRequest.getAmount());
     }
     if (updateRequest.getPrice() != null) {
       existingItem.setPrice(updateRequest.getPrice());

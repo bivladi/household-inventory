@@ -12,14 +12,14 @@ import org.household.inventory.items.repository.ItemsRepository;
 import org.household.inventory.model.Item;
 import org.junit.jupiter.api.Test;
 
-class ItemsQueryImplTest {
+class FindItemImplTest {
 
-  private final ItemsQueryImpl subject;
+  private final FindItemImpl subject;
   private final ItemsRepository repositoryMock;
 
-  ItemsQueryImplTest() {
+  FindItemImplTest() {
     repositoryMock = mock(ItemsRepository.class);
-    subject = new ItemsQueryImpl(repositoryMock);
+    subject = new FindItemImpl(repositoryMock);
   }
 
   @Test

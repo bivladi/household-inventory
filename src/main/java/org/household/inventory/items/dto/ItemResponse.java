@@ -13,7 +13,6 @@ public record ItemResponse(
     UUID id,
     String name,
     String description,
-    Integer amount,
     Double price,
     List<String> categories,
     LocalDateTime createdAt,

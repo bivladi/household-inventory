@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemsRepository extends JpaRepository<Item, UUID> {}
+public interface ItemsRepository extends JpaRepository<Item, UUID> {
+  boolean existsByName(String name);
+
+  boolean existsItemByCategoriesId(UUID categoryId);
+}

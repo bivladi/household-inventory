@@ -5,10 +5,12 @@ import java.util.stream.Collectors;
 import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.households.dto.CreateHouseholdRequest;
 import org.household.inventory.households.dto.CreateHouseholdResponse;
+import org.household.inventory.households.dto.CreateItemResponse;
 import org.household.inventory.households.dto.HouseholdResponse;
 import org.household.inventory.households.dto.UpdateHouseholdRequest;
 import org.household.inventory.households.dto.UpdateHouseholdResponse;
 import org.household.inventory.model.Household;
+import org.household.inventory.model.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -146,5 +148,9 @@ public final class HouseholdsMapper {
         page.isLast(),
         page.hasNext(),
         page.hasPrevious());
+  }
+
+  public CreateItemResponse toCreateItemResponse(Item item) {
+    return new CreateItemResponse(item.getId().toString(), item.getCreatedAt());
   }
 }

@@ -44,7 +44,7 @@
 - [ ] Dependency version management
 - [ ] Error handling
 - [ ] Integration tests
-- 
+- [ ] Stirng -> UUID converter
 
 
 ADR

@@ -3,8 +3,8 @@ package org.household.inventory.categories.application.impl;
 import java.util.UUID;
 import org.household.inventory.categories.application.CategoriesApplicationService;
 import org.household.inventory.categories.repository.CategoriesRepository;
-import org.household.inventory.categories.service.CategoriesQuery;
-import org.household.inventory.categories.service.impl.CategoriesQueryImpl;
+import org.household.inventory.categories.service.FindCategory;
+import org.household.inventory.categories.service.impl.FindCategoryImpl;
 import org.household.inventory.common.exception.BadArgumentApplicationException;
 import org.household.inventory.common.exception.NotFoundApplicationException;
 import org.household.inventory.model.Category;
@@ -15,12 +15,12 @@ import org.springframework.util.StringUtils;
 @Service
 public class CategoriesApplicationServiceImpl implements CategoriesApplicationService {
 
-  private final CategoriesQuery categoriesQuery;
+  private final FindCategory findCategory;
   private final CategoriesRepository repository;
 
   public CategoriesApplicationServiceImpl(
-      CategoriesQuery categoriesQuery, CategoriesRepository repository) {
-    this.categoriesQuery = categoriesQuery;
+      FindCategory findCategory, CategoriesRepository repository) {
+    this.findCategory = findCategory;
     this.repository = repository;
   }
 
@@ -34,14 +34,14 @@ public class CategoriesApplicationServiceImpl implements CategoriesApplicationSe
     if (!StringUtils.hasText(id)) {
       throw new BadArgumentApplicationException("category id cannot be null or empty");
     }
-    return ((CategoriesQueryImpl) categoriesQuery)
+    return ((FindCategoryImpl) findCategory)
         .findById(UUID.fromString(id))
         .orElseThrow(() -> new NotFoundApplicationException("category not found with id: " + id));
   }
 
   @Override
   public Page<Category> getAllCategories(int page, int size, String sort, String direction) {
-    return categoriesQuery.findAllCategories(page, size, sort, direction);
+    return findCategory.findAllCategories(page, size, sort, direction);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class CategoriesApplicationServiceImpl implements CategoriesApplicationSe
     }
 
     Category existingCategory =
-        ((CategoriesQueryImpl) categoriesQuery)
+        ((FindCategoryImpl) findCategory)
             .findById(UUID.fromString(id))
             .orElseThrow(
                 () -> new NotFoundApplicationException("category not found with id: " + id));

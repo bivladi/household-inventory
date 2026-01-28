@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS items(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    amount INT NOT NULL CHECK (amount >= 0) DEFAULT 0,
     price FLOAT NOT NULL CHECK (price >= 0) DEFAULT 0,
     created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
