@@ -50,7 +50,7 @@ public final class CategoriesMapper {
       throw new IllegalArgumentException("Category cannot be null");
     }
 
-    return new CreateCategoryResponse(category.getId().toString(), category.getCreatedAt());
+    return new CreateCategoryResponse(category.getId(), category.getCreatedAt());
   }
 
   /**

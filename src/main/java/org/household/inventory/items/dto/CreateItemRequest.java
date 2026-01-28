@@ -10,6 +10,5 @@ import lombok.Setter;
 public class CreateItemRequest {
   private String name;
   private String description;
-  private Integer amount;
   private Double price;
 }

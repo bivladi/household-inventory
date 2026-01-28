@@ -1,7 +1,6 @@
 package org.household.inventory.households.application.impl;
 
 import java.util.UUID;
-import org.household.inventory.common.exception.BadArgumentApplicationException;
 import org.household.inventory.common.exception.NotFoundApplicationException;
 import org.household.inventory.households.application.HouseholdsApplicationService;
 import org.household.inventory.households.repository.HouseholdsRepository;
@@ -10,7 +9,6 @@ import org.household.inventory.households.service.impl.HouseholdsQueryImpl;
 import org.household.inventory.model.Household;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class HouseholdsApplicationServiceImpl implements HouseholdsApplicationService {
@@ -30,12 +28,9 @@ public class HouseholdsApplicationServiceImpl implements HouseholdsApplicationSe
   }
 
   @Override
-  public Household getHouseholdById(String id) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("household id cannot be null or empty");
-    }
+  public Household getHouseholdById(UUID id) {
     return ((HouseholdsQueryImpl) householdsQuery)
-        .findById(UUID.fromString(id))
+        .findById(id)
         .orElseThrow(() -> new NotFoundApplicationException("household not found with id: " + id));
   }
 
@@ -45,14 +40,10 @@ public class HouseholdsApplicationServiceImpl implements HouseholdsApplicationSe
   }
 
   @Override
-  public Household updateHousehold(String id, Household updateRequest) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("household id cannot be null or empty");
-    }
-
+  public Household updateHousehold(UUID id, Household updateRequest) {
     Household existingHousehold =
         ((HouseholdsQueryImpl) householdsQuery)
-            .findById(UUID.fromString(id))
+            .findById(id)
             .orElseThrow(
                 () -> new NotFoundApplicationException("household not found with id: " + id));
 
@@ -68,7 +59,7 @@ public class HouseholdsApplicationServiceImpl implements HouseholdsApplicationSe
   }
 
   @Override
-  public void deleteHousehold(String id) {
-    repository.deleteById(UUID.fromString(id));
+  public void deleteHousehold(UUID id) {
+    repository.deleteById(id);
   }
 }

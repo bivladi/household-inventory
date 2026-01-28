@@ -52,7 +52,7 @@ public final class HouseholdsMapper {
       throw new IllegalArgumentException("Household cannot be null");
     }
 
-    return new CreateHouseholdResponse(household.getId().toString(), household.getCreatedAt());
+    return new CreateHouseholdResponse(household.getId(), household.getCreatedAt());
   }
 
   /**
@@ -151,6 +151,6 @@ public final class HouseholdsMapper {
   }
 
   public CreateItemResponse toCreateItemResponse(Item item) {
-    return new CreateItemResponse(item.getId().toString(), item.getCreatedAt());
+    return new CreateItemResponse(item.getId(), item.getCreatedAt());
   }
 }

@@ -14,6 +14,5 @@ import lombok.Setter;
 public class UpdateItemRequest {
   private String name;
   private String description;
-  private Integer amount;
   private Double price;
 }

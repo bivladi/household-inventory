@@ -53,7 +53,7 @@ public final class ItemsMapper {
       throw new IllegalArgumentException("Item cannot be null");
     }
 
-    return new CreateItemResponse(item.getId().toString(), item.getCreatedAt());
+    return new CreateItemResponse(item.getId(), item.getCreatedAt());
   }
 
   /**

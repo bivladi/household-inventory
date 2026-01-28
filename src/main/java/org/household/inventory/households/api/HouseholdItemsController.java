@@ -1,5 +1,6 @@
 package org.household.inventory.households.api;
 
+import java.util.UUID;
 import org.household.inventory.households.application.HouseholdAddItemApplicationService;
 import org.household.inventory.households.dto.CreateItemRequest;
 import org.household.inventory.households.dto.CreateItemResponse;
@@ -25,7 +26,7 @@ public class HouseholdItemsController {
 
   @PostMapping
   public CreateItemResponse createItem(
-      @PathVariable(value = "householdId") String householdId,
+      @PathVariable(value = "householdId") UUID householdId,
       @RequestBody CreateItemRequest requestBody) {
     return mapper.toCreateItemResponse(service.createItem(householdId, requestBody));
   }

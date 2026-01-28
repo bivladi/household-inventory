@@ -1,8 +1,8 @@
 package org.household.inventory.households.application.impl;
 
 import jakarta.transaction.Transactional;
+import java.util.Objects;
 import java.util.UUID;
-import org.apache.logging.log4j.util.Strings;
 import org.household.inventory.categories.service.FindCategory;
 import org.household.inventory.common.exception.BadArgumentApplicationException;
 import org.household.inventory.common.exception.NotFoundApplicationException;
@@ -21,56 +21,55 @@ import org.springframework.stereotype.Service;
 public class HouseholdAddItemApplicationServiceImpl implements HouseholdAddItemApplicationService {
   private final HouseholdsRepository repository;
   private final HouseholdItemRepository householdItemRepository;
-  private final CreateItem createItem;
-  private final FindItem findItem;
-  private final FindCategory findCategory;
+  private final CreateItem itemCreator;
+  private final FindItem itemFinder;
+  private final FindCategory categoryFinder;
 
   public HouseholdAddItemApplicationServiceImpl(
       HouseholdsRepository repository,
       HouseholdItemRepository householdItemRepository,
-      CreateItem createItem,
-      FindItem findItem,
-      FindCategory findCategory) {
+      CreateItem itemCreator,
+      FindItem itemFinder,
+      FindCategory categoryFinder) {
     this.repository = repository;
     this.householdItemRepository = householdItemRepository;
-    this.createItem = createItem;
-    this.findItem = findItem;
-    this.findCategory = findCategory;
+    this.itemCreator = itemCreator;
+    this.itemFinder = itemFinder;
+    this.categoryFinder = categoryFinder;
   }
 
   @Override
   @Transactional
-  public Item createItem(String householdId, CreateItemRequest request) {
-    final var id = UUID.fromString(householdId);
+  public Item createItem(UUID householdId, CreateItemRequest request) {
     var household =
         repository
-            .findById(id)
+            .findById(householdId)
             .orElseThrow(
                 () ->
                     new NotFoundApplicationException(
-                        String.format("Household with id=%s isnot found", id)));
-    if (findItem.existsByName(request.getName())) {
+                        String.format("Household with id=%s isnot found", householdId)));
+    if (itemFinder.existsByName(request.getName())) {
       throw new BadArgumentApplicationException(
           String.format("Item with id=%s already esists", request.getName()));
     }
-    final var item = createItem.saveEntity(getItem(request));
+    final var item = itemCreator.saveEntity(getItem(request));
     saveHouseholdItem(household, item, request.getAmount());
     // link to category
-    if (Strings.isNotBlank(request.getCategoryId())) {
+    if (Objects.nonNull(request.getCategoryId())) {
       updateCategories(request.getCategoryId(), item);
     }
     return item;
   }
 
-  private void updateCategories(String categoryId, Item item) {
+  private void updateCategories(UUID categoryId, Item item) {
     final var category =
-        findCategory
-            .findById(UUID.fromString(categoryId))
+        categoryFinder
+            .findById(categoryId)
             .orElseThrow(
                 () ->
                     new NotFoundApplicationException(
                         String.format("Category with id=%s is not found", categoryId)));
-    if (findItem.isUnderCategory(category.getId())) {
+    if (itemFinder.isUnderCategory(category.getId())) {
       throw new BadArgumentApplicationException(
           String.format(
               "Item id=%s is under category id=%s already", item.getId(), category.getId()));

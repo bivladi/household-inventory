@@ -2,6 +2,7 @@ package org.household.inventory.categories.api;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.UUID;
 import org.household.inventory.categories.application.CategoriesApplicationService;
 import org.household.inventory.categories.dto.CategoryResponse;
 import org.household.inventory.categories.dto.CreateCategoryRequest;
@@ -58,18 +59,18 @@ public class CategoriesController {
   }
 
   @GetMapping("/{id}")
-  public CategoryResponse getById(@PathVariable(name = "id") String id) {
+  public CategoryResponse getById(@PathVariable(name = "id") UUID id) {
     return mapper.toResponse(service.getCategoryById(id));
   }
 
   @PutMapping("/{id}")
   public UpdateCategoryResponse update(
-      @PathVariable(name = "id") String id, @RequestBody UpdateCategoryRequest request) {
+      @PathVariable(name = "id") UUID id, @RequestBody UpdateCategoryRequest request) {
     return mapper.toUpdateResponse(service.updateCategory(id, mapper.toUpdateEntity(request)));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable(name = "id") String id) {
+  public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
     service.deleteCategory(id);
     return ResponseEntity.ok().build();
   }

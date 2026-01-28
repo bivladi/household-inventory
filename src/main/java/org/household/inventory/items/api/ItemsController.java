@@ -2,6 +2,7 @@ package org.household.inventory.items.api;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.UUID;
 import org.household.inventory.common.api.model.PageNumber;
 import org.household.inventory.common.api.model.PaginatedResponse;
 import org.household.inventory.common.api.model.SizeNumber;
@@ -57,18 +58,18 @@ public class ItemsController {
   }
 
   @GetMapping("/{id}")
-  public ItemResponse getById(@PathVariable(name = "id") String id) {
+  public ItemResponse getById(@PathVariable(name = "id") UUID id) {
     return mapper.toResponse(service.getItemById(id));
   }
 
   @PutMapping("/{id}")
   public UpdateItemResponse update(
-      @PathVariable(name = "id") String id, @RequestBody UpdateItemRequest request) {
+      @PathVariable(name = "id") UUID id, @RequestBody UpdateItemRequest request) {
     return mapper.toUpdateResponse(service.updateItem(id, mapper.toUpdateEntity(request)));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable(name = "id") String id) {
+  public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
     service.deleteItem(id);
     return ResponseEntity.ok().build();
   }

@@ -1,15 +1,13 @@
 package org.household.inventory.items.application.impl;
 
 import java.util.UUID;
+import org.household.inventory.common.exception.NotFoundApplicationException;
 import org.household.inventory.items.application.ItemsApplicationService;
-import org.household.inventory.items.exception.BadArgumentApplicationException;
-import org.household.inventory.items.exception.ItemNotFoundApplicationException;
 import org.household.inventory.items.repository.ItemsRepository;
 import org.household.inventory.items.service.FindItem;
 import org.household.inventory.model.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class ItemsApplicationServiceImpl implements ItemsApplicationService {
@@ -28,13 +26,10 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   }
 
   @Override
-  public Item getItemById(String id) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("item id cannot be null or empty");
-    }
+  public Item getItemById(UUID id) {
     return findItem
-        .findById(UUID.fromString(id))
-        .orElseThrow(() -> new ItemNotFoundApplicationException("item not found with id: " + id));
+        .findById(id)
+        .orElseThrow(() -> new NotFoundApplicationException("item not found with id: " + id));
   }
 
   @Override
@@ -43,16 +38,11 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   }
 
   @Override
-  public Item updateItem(String id, Item updateRequest) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("item id cannot be null or empty");
-    }
-
+  public Item updateItem(UUID id, Item updateRequest) {
     Item existingItem =
         findItem
-            .findById(UUID.fromString(id))
-            .orElseThrow(
-                () -> new ItemNotFoundApplicationException("item not found with id: " + id));
+            .findById(id)
+            .orElseThrow(() -> new NotFoundApplicationException("item not found with id: " + id));
 
     // Apply partial updates - only update non-null fields
     if (updateRequest.getName() != null) {
@@ -69,7 +59,7 @@ public class ItemsApplicationServiceImpl implements ItemsApplicationService {
   }
 
   @Override
-  public void deleteItem(String id) {
-    repository.deleteById(UUID.fromString(id));
+  public void deleteItem(UUID id) {
+    repository.deleteById(id);
   }
 }

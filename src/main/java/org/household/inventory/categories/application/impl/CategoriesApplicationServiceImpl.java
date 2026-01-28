@@ -5,12 +5,10 @@ import org.household.inventory.categories.application.CategoriesApplicationServi
 import org.household.inventory.categories.repository.CategoriesRepository;
 import org.household.inventory.categories.service.FindCategory;
 import org.household.inventory.categories.service.impl.FindCategoryImpl;
-import org.household.inventory.common.exception.BadArgumentApplicationException;
 import org.household.inventory.common.exception.NotFoundApplicationException;
 import org.household.inventory.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class CategoriesApplicationServiceImpl implements CategoriesApplicationService {
@@ -30,12 +28,9 @@ public class CategoriesApplicationServiceImpl implements CategoriesApplicationSe
   }
 
   @Override
-  public Category getCategoryById(String id) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("category id cannot be null or empty");
-    }
+  public Category getCategoryById(UUID id) {
     return ((FindCategoryImpl) findCategory)
-        .findById(UUID.fromString(id))
+        .findById(id)
         .orElseThrow(() -> new NotFoundApplicationException("category not found with id: " + id));
   }
 
@@ -45,14 +40,10 @@ public class CategoriesApplicationServiceImpl implements CategoriesApplicationSe
   }
 
   @Override
-  public Category updateCategory(String id, Category updateRequest) {
-    if (!StringUtils.hasText(id)) {
-      throw new BadArgumentApplicationException("category id cannot be null or empty");
-    }
-
+  public Category updateCategory(UUID id, Category updateRequest) {
     Category existingCategory =
         ((FindCategoryImpl) findCategory)
-            .findById(UUID.fromString(id))
+            .findById(id)
             .orElseThrow(
                 () -> new NotFoundApplicationException("category not found with id: " + id));
 
@@ -68,7 +59,7 @@ public class CategoriesApplicationServiceImpl implements CategoriesApplicationSe
   }
 
   @Override
-  public void deleteCategory(String id) {
-    repository.deleteById(UUID.fromString(id));
+  public void deleteCategory(UUID id) {
+    repository.deleteById(id);
   }
 }
