@@ -1,6 +1,12 @@
 package org.household.inventory.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +26,6 @@ public class Item extends BaseEntity {
   @Column(name = "description", nullable = false)
   private String description;
 
-  @Column(name = "amount", nullable = false)
-  private Integer amount;
-
   @Column(name = "price", nullable = false)
   // TODO change type for something more precise for currency
   private Double price;
@@ -32,5 +35,5 @@ public class Item extends BaseEntity {
       name = "item_categories",
       joinColumns = @JoinColumn(name = "item_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id"))
-  List<Category> categories;
+  List<Category> categories = new ArrayList<>();
 }

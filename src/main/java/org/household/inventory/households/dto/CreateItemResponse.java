@@ -1,4 +1,4 @@
-package org.household.inventory.items.dto;
+package org.household.inventory.households.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

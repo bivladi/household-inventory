@@ -4,12 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * DTO representing the response for an Item. Contains all fields from Item entity including
- * inherited fields from BaseEntity. Designed to avoid nulls by using empty collections and proper
- * default values.
- */
-public record ItemResponse(
+/** Record DTO for update item response. Contains the complete updated state of the item. */
+public record UpdateItemResponse(
     UUID id,
     String name,
     String description,

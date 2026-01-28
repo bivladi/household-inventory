@@ -8,6 +8,12 @@
     <description>Base PMD ruleset</description>
 
     <rule ref="category/java/errorprone.xml"/>
-    <rule ref="category/java/bestpractices.xml"/>
-
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="ImplicitFunctionalInterface"/>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UnitTestContainsTooManyAsserts">
+        <properties>
+            <property name="maximumAsserts" value="5" />
+        </properties>
+    </rule>
 </ruleset>

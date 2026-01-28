@@ -1,5 +1,6 @@
-package org.household.inventory.items.dto;
+package org.household.inventory.households.dto;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CreateItemRequest {
+  private UUID categoryId;
   private String name;
   private String description;
+  private Long amount;
   private Double price;
 }

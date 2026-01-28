@@ -1,4 +1,4 @@
-package org.household.inventory.items.exception;
+package org.household.inventory.common.exception;
 
 import java.io.Serial;
 
